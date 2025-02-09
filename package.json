@@ -1,5 +1,6 @@
 {
   "name": "eur2usd",
+  "homepage": "https://tcharrada.github.io/eur2usd/",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -11,7 +12,7 @@
     "test": "vitest",
     "test:watch": "vitest --watch",
     "predeploy" : "npm run build",
-    "deploy" : "gh-pages -d build"
+    "deploy" : "gh-pages -d dist"
   },
   "dependencies": {
     "@emotion/react": "^11.14.0",
