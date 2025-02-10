@@ -2,9 +2,10 @@ import { useState, useEffect } from 'react';
 import { Typography, Container, TextField, Chip, IconButton } from "@mui/material"
 import CurrencyExchangeIcon from '@mui/icons-material/CurrencyExchange';
 import Grid from '@mui/material/Grid2';
+import { calcNewRate } from '../utils/calc';
 
-const EXCHANGE_RATE_DEFAULT = 1.1
 const EXCHANGE_RATE_INTERVAL = [0.05, -0.05]
+const EXCHANGE_RATE_DEFAULT = 1.1
 const EXCHANGE_RATE_UPDATE_INTERVAL = 3000
 
 export default function ExchangeRate() {
@@ -15,15 +16,10 @@ export default function ExchangeRate() {
 
   const [exchangeRate, setExchangeRate] = useState(EXCHANGE_RATE_DEFAULT)
 
-  const calcNewRate = () => {
-    const randomRateIndex = Math.floor(Math.random() * EXCHANGE_RATE_INTERVAL.length)
-    const newRate = EXCHANGE_RATE_DEFAULT+EXCHANGE_RATE_INTERVAL[randomRateIndex]
-    return Math.round(newRate * 100) / 100
-  }
 
   useEffect(() => {
     setInterval(() => {
-      const newExchangeRate = calcNewRate()
+      const newExchangeRate = calcNewRate(EXCHANGE_RATE_DEFAULT, EXCHANGE_RATE_INTERVAL)
       setExchangeRate(newExchangeRate)
     }, EXCHANGE_RATE_UPDATE_INTERVAL)
   }, [])
@@ -54,7 +50,7 @@ export default function ExchangeRate() {
           EUR - USD Converter
           </Typography>
           <Typography variant="h5">
-            Live Exchange Rate <Chip label={exchangeRate} variant="filled" color='info' />
+            Live Exchange Rate <Chip label={exchangeRate} variant="filled" color='info' data-testid="live-rate" />
           </Typography>
         </Grid>
         <Grid size={12}>
